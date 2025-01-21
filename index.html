@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LongNai</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Game Platform</h1>
+    </header>
+
+    <div class="container">
+        <div id="loading-animation"></div>
+
+    <!-- Sign-Up Form -->
+        <form id="sign-up-form">
+            <h2 class="section-title">Sign Up</h2>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required />
+
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required />
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required />
+
+            <label for="grade">Grade:</label>
+            <select id="grade" name="grade" required>
+                <option value="Primary">Primary</option>
+                <option value="Secondary">Secondary</option>
+            </select>
+
+            <label for="profile-picture">Profile Picture:</label>
+            <input type="file" id="profile-picture" name="profile-picture" />
+
+            <button type="submit">Sign Up</button>
+        </form>
+
+        <!-- Login Form -->
+        <form id="login-form" style="margin-top: 2rem;">
+            <h2 class="section-title">Login</h2>
+            <label for="login-username">Username:</label>
+            <input type="text" id="login-username" name="username" required />
+
+            <label for="login-password">Password:</label>
+            <input type="password" id="login-password" name="password" required />
+
+            <button type="submit">Login</button>
+        </form>
+
+        <!-- Profile Management -->
+            <div id="profile-page" style="display: none; margin-top: 2rem;">
+                <h2 class="section-title">Profile</h2>
+                <label for="profile-picture">Profile Picture:</label>
+                <input type="file" id="profile-update-picture" name="profile-picture" />
+
+                <label for="profile-username">Username:</label>
+                <input type="text" id="profile-username" name="username" />
+
+                <label for="profile-user-id">User ID:</label>
+                <input type="text" id="profile-user-id" name="user-id" readonly />
+
+                <label for="profile-grade">Grade:</label>
+                <select id="profile-grade" name="grade">
+                    <option value="Primary">Primary</option>
+                    <option value="Secondary">Secondary</option>
+                </select>
+
+                <button id="save-profile">Save</button>
+            </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.4/lottie.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

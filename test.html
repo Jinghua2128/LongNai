@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Platform</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+    header {
+      background-color: #333;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    .container {
+      margin: 2rem auto;
+      max-width: 800px;
+      padding: 1rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    form label, form input, form select, form button, .section-title, .error-message {
+      display: block;
+      margin-bottom: 1rem;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 0.8rem;
+      font-size: 1rem;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    ul li {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #ccc;
+    }
+    button {
+      background-color: #333;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #555;
+    }
+    #loading-animation {
+      display: none;
+      margin: auto;
+      width: 200px;
+      height: 200px;
+    }
+    .error-message {
+      color: red;
+    }
+    #leaderboard, #gameplay, #reset-password {
+      display: none;
+    }
+    .leaderboard-list {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+    .leaderboard-list span {
+      font-weight: bold;
+    }
+    #quiz-section {
+      margin-top: 1rem;
+    }
+    #quiz-section h3 {
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Game Platform</h1>
+  </header>
+
+  <div class="container">
+    <div id="loading-animation"></div>
+
+    <!-- Sign-Up Form -->
+    <form id="sign-up-form">
+      <h2 class="section-title">Sign Up</h2>
+      <div class="error-message" id="sign-up-error"></div>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required />
+
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required />
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required />
+
+      <label for="grade">Grade:</label>
+      <select id="grade" name="grade" required>
+        <option value="Primary">Primary</option>
+        <option value="Secondary">Secondary</option>
+      </select>
+
+      <button type="submit">Sign Up</button>
+    </form>
+
+    <!-- Login Form -->
+    <form id="login-form" style="margin-top: 2rem;">
+      <h2 class="section-title">Login</h2>
+      <div class="error-message" id="login-error"></div>
+      <label for="login-username">Username:</label>
+      <input type="text" id="login-username" name="username" required />
+
+      <label for="login-password">Password:</label>
+      <input type="password" id="login-password" name="password" required />
+
+      <button type="submit">Login</button>
+    </form>
+
+    <!-- Profile Management -->
+    <div id="profile-page" style="display: none; margin-top: 2rem;">
+      <h2 class="section-title">Profile</h2>
+      <label for="profile-username">Username:</label>
+      <input type="text" id="profile-username" name="username" readonly />
+
+      <label for="profile-grade">Grade:</label>
+      <select id="profile-grade" name="grade">
+        <option value="Primary">Primary</option>
+        <option value="Secondary">Secondary</option>
+      </select>
+
+      <button id="logout">Logout</button>
+    </div>
+
+    <!-- Leaderboard -->
+    <div id="leaderboard" style="margin-top: 2rem;">
+      <h2 class="section-title">Leaderboard</h2>
+      <ul id="leaderboard-list"></ul>
+    </div>
+
+    <!-- Gameplay Section -->
+    <div id="gameplay" style="margin-top: 2rem;">
+      <h2 class="section-title">Gameplay</h2>
+      <p>Answer the quiz to earn points:</p>
+      <div id="quiz-section"></div>
+    </div>
+
+    <!-- Reset Password Form -->
+    <form id="reset-password" style="margin-top: 2rem;">
+      <h2 class="section-title">Reset Password</h2>
+      <div class="error-message" id="reset-error"></div>
+      <label for="reset-email">Enter your email:</label>
+      <input type="email" id="reset-email" name="reset-email" required />
+      <button type="submit">Send Reset Link</button>
+    </form>
+  </div>
+
+  <script>
+    const BASE_URL = 'https://<your-database-id>.restdb.io/rest';
+    const API_KEY = '<your-restdb-api-key>';
+
+    async function fetchData(collection) {
+      const response = await fetch(`${BASE_URL}/${collection}`, {
+        headers: { 'Content-Type': 'application/json', 'x-apikey': API_KEY },
+      });
+      return response.json();
+    }
+
+    async function createData(collection, data) {
+      const response = await fetch(`${BASE_URL}/${collection}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-apikey': API_KEY },
+        body: JSON.stringify(data),
+      });
+      return response.json();
+    }
+
+    async function sendEmail(email, message) {
+      const emailData = {
+        to: email,
+        subject: 'Password Reset Link',
+        html: `<p>${message}</p>`,
+      };
+
+      const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          service_id: '<your-emailjs-service-id>',
+          template_id: '<your-template-id>',
+          user_id: '<your-emailjs-user-id>',
+          template_params: emailData,
+        }),
+      });
+      return response.json();
+    }
+
+    document.getElementById('reset-password').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('reset-email').value;
+      const users = await fetchData('users');
+      const user = users.find((u) => u.email === email);
+
+      if (user) {
+        await sendEmail(
+          email,
+          `Hi ${user.username}, click <a href="https://example.com/reset-password/${user._id}">here</a> to reset your password.`
+        );
+        alert('Reset link sent to your email!');
+      } else {
+        document.getElementById('reset-error').textContent = 'Email not found.';
+      }
+    });
+
+    async function loadQuestions() {
+      const questions = await fetchData('questions');
+      const quizSection = document.getElementById('quiz-section');
+      quizSection.innerHTML = '';
+
+      questions.forEach((q) => {
+        const questionDiv = document.createElement('div');
+        questionDiv.innerHTML = `
+          <h3>${q.question}</h3>
+          ${q.options.map((option, idx) => `<button data-answer="${option}" class="quiz-option">${option}</button>`).join('')}
+        `;
+        quizSection.appendChild(questionDiv);
+      });
+
+      document.querySelectorAll('.quiz-option').forEach((button) => {
+        button.addEventListener('click', async (e) => {
+          const selectedAnswer = e.target.dataset.answer;
+          if (selectedAnswer === q.correctAnswer) {
+            alert('Correct answer! +10 points!');
+          } else {
+            alert('Wrong answer!');
+          }
+        });
+      });
+    }
+
+    loadQuestions();
+  </script>
+</body>
+</html>
