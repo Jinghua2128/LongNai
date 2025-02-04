@@ -1,76 +1,126 @@
-const BASE_URL = 'https://interactivedev-7676.restdb.io/rest';
-const API_KEY = '<677f2236306a940f5e829b81>';
+// Import jQuery
+$(document).ready(() => {
+  const apiKey = "677f2236306a940f5e829b81"
+  const dbUrl = "https://interactivedev-7676.restdb.io/rest/"
 
-// Lottie animation for loading
-const loadingAnimation = lottie.loadAnimation({
-    container: document.getElementById('loading-animation'),
-    renderer: 'svg',
-    loop: true,
-    autoplay: true,
-    path: 'https://assets6.lottiefiles.com/private_files/lf30_editor_jzzdmonp.json',
-});
+  let currentUser = null
+  let currentStory = null
 
-function toggleLoading(show) {
-    const animation = document.getElementById('loading-animation');
-    animation.style.display = show ? 'block' : 'none';
-}
+  // Page navigation
+  function showPage(pageId) {
+    $(".page").addClass("hidden")
+    $(`#${pageId}`).removeClass("hidden")
+  }
 
-// Utility functions for RestDB
-async function fetchData(collection) {
-    const response = await fetch(`${BASE_URL}/${collection}`, {
-        headers: { 'Content-Type': 'application/json', 'x-apikey': API_KEY },
-    });
-    return response.json();
-}
+  // Login functionality
+  $("#login-form").submit((e) => {
+    e.preventDefault()
+    const username = $("#username").val()
+    const password = $("#password").val()
 
-async function createData(collection, data) {
-    const response = await fetch(`${BASE_URL}/${collection}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'x-apikey': API_KEY },
-        body: JSON.stringify(data),
-    });
-    return response.json();
-}
-
-// Form handlers
-document.getElementById('sign-up-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    toggleLoading(true);
-
-    const email = document.getElementById('email').value;
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-    const grade = document.getElementById('grade').value;
-
-    try {
-        await createData('users', { email, username, password, grade });
-        alert('Sign up successful!');
-    } catch (error) {
-        alert('Error during sign-up.');
-    } finally {
-        toggleLoading(false);
-    }
-});
-
-document.getElementById('login-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    toggleLoading(true);
-
-    const username = document.getElementById('login-username').value;
-    const password = document.getElementById('login-password').value;
-
-    try {
-        const users = await fetchData('users');
-        const user = users.find((u) => u.username === username && u.password === password);
-        if (user) {
-        alert('Login successful!');
-        document.getElementById('profile-page').style.display = 'block';
+    $.ajax({
+      url: `${dbUrl}users`,
+      method: "GET",
+      headers: {
+        "x-apikey": apiKey,
+      },
+      data: {
+        q: JSON.stringify({ username: username, password: password }),
+      },
+      success: (data) => {
+        if (data.length > 0) {
+          currentUser = data[0]
+          $("#user-name").text(currentUser.username)
+          showPage("home-page")
         } else {
-        alert('Invalid username or password.');
+          alert("Invalid username or password")
         }
-    } catch (error) {
-        alert('Error during login.');
-    } finally {
-        toggleLoading(false);
+      },
+      error: () => {
+        alert("An error occurred. Please try again.")
+      },
+    })
+  })
+
+  // Sign up functionality
+  $("#signup-form").submit((e) => {
+    e.preventDefault()
+    const newUser = {
+      username: $("#new-username").val(),
+      email: $("#email").val(),
+      password: $("#new-password").val(),
+      grade: $("#grade").val(),
     }
-});
+
+    $.ajax({
+      url: `${dbUrl}users`,
+      method: "POST",
+      headers: {
+        "x-apikey": apiKey,
+        "Content-Type": "application/json",
+      },
+      data: JSON.stringify(newUser),
+      success: () => {
+        alert("Sign up successful! Please log in.")
+        showPage("login-page")
+      },
+      error: () => {
+        alert("An error occurred. Please try again.")
+      },
+    })
+  })
+
+  // Forgot password functionality
+  $("#forgot-password-form").submit((e) => {
+    e.preventDefault()
+    // Implement password reset logic here
+    alert("Password reset functionality not implemented in this demo.")
+  })
+
+  // Play button click
+  $("#play-button").click(() => {
+    showPage("play-page")
+  })
+
+  // Story selection
+  $(".story-box").click(function () {
+    const storyId = $(this).data("story")
+    loadStory(storyId)
+  })
+
+  function loadStory(storyId) {
+    $.ajax({
+      url: `${dbUrl}stories/${storyId}`,
+      method: "GET",
+      headers: {
+        "x-apikey": apiKey,
+      },
+      success: (data) => {
+        currentStory = data
+        $("#story-title").text(data.title)
+        $("#story-content").html(data.content)
+        showPage("game-page")
+        load3DModel(data.characterModel)
+      },
+      error: () => {
+        alert("An error occurred while loading the story. Please try again.")
+      },
+    })
+  }
+
+  function load3DModel(modelUrl) {
+    // Implement Three.js model loading here
+    // This is a placeholder function
+    console.log("Loading 3D model:", modelUrl)
+  }
+
+  // Navigation links
+  $("#signup-link").click(() => {
+    showPage("signup-page")
+  })
+
+  $("#forgot-password-link").click(() => {
+    showPage("forgot-password-page")
+  })
+})
+
