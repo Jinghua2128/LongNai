@@ -3,45 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Long Nai</title>
+    <title>LongNai - Forgot Password</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js" type="text/javascript"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
     <div class="blob"></div>
     <div class="wrapper">
-        <form action="">
-            <img class="longnai" src="imgs/longnai.png" alt="Game Icon">
-            <h2>Welcome to Long Nai</h2>
+        <form id="forgot-password-form">
+            <div class="longnai">
+                <img src="imgs/longnai.png" alt="Game Icon">
+            </div>
+            <h2>Forgot your password?</h2>
             <div class="input-box">
                 <span class="icon"><i class="material-icons">email</i></span>
-                <input type="email" required>
+                <input type="email" id="email" required>
                 <label>Please enter your email</label>
             </div>
-            <div class="input-box">
-                <span class="icon"><i class="material-icons">password</i></span>
-                <input type="password" required>
-                <label>Please enter your password</label>
-            </div>
-            <div class="remember-forgot">
-                <label>
-                    <input type="checkbox" required>Remember password
-                    <a href="forgot password.html">Forgot password?</a>
-                </label>
-            </div>
-            <button type="submit">Login</button>
+            <button type="submit">Reset your password</button>
             <div class="register-link">
-                <p>Do not have an account? <a href="signup.html">Sign up now</a></p>
+                <p>Remember your password? <a href="login.html">Login now</a></p>
             </div>
-            
         </form>
-
-
     </div>
-    
-    <script src="app.js"></script>
+    <nav>
+        <div class="effect"></div>
+        <button class="active">
+            <a href="index.html">
+                <i class="material-icons">gite</i>
+            </a>
+        </button>
+        <button>
+            <a href="play.html">
+                <i class="material-icons">auto_stories</i>
+            </a>
+        </button>
+        <button>
+            <a href="friend.html">
+                <i class="material-icons">group</i>
+            </a>
+        </button>
+        <button>
+            <a href="profile.html">
+                <i class="material-icons">account_box</i>
+            </a>
+            
+        </button>
+    </nav>
+    <script src="test.js"></script>
 </body>
 </html>
-
