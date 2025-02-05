@@ -3,48 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Long Nai</title>
+    <title>LongNai - Sign Up</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
     <div class="blob"></div>
     <div class="wrapper1">
-        <form action="">
+        <form id="signup-form">
             <img class="longnai" src="imgs/longnai.png" alt="Game Icon">
             <h2>New to LongNai?</h2>
             <h2>Sign Up now</h2>
             
             <div class="input-box">
-                <span class="icon"><i class="material-icons">email</i></span>
-                <input type="email" required>
-                <label>Please enter your email</label>
-            </div>
-            <div class="input-box">
                 <span class="icon"><i class="material-icons">person</i></span>
-                <input type="text" required>
+                <input type="text" id="signup-username" required>
                 <label>Please enter your username</label>
             </div>
             <div class="input-box">
+                <span class="icon"><i class="material-icons">email</i></span>
+                <input type="email" id="signup-email" required>
+                <label>Please enter your email</label>
+            </div>
+            <div class="input-box">
                 <span class="icon"><i class="material-icons">password</i></span>
-                <input type="password" required>
+                <input type="password" id="signup-password" required>
                 <label>Please enter your password</label>
             </div>
-            <div class="remember-forgot">
+            <div class="forgot">
                 <label>
                     <input type="checkbox" required>I agree to all the policy
                 </label>
             </div>
-            <button type="submit">Login</button>
+            <button id="SignUp" type="submit">Sign Up</button>
             <div class="register-link">
                 <p>Already have an account? <a href="login.html">Login now</a></p>
             </div>
         </form>
     </div>
     
-    <script src="script.js"></script>
+    <script src="test.js"></script>
 </body>
 </html>
-
