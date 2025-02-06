@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LongNai - Forgot Password</title>
+    <title>LongNai - Home</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js" type="text/javascript"></script>
@@ -11,23 +11,42 @@
 </head>
 <body>
     <div class="blob"></div>
-    <div class="wrapper">
-        <form id="forgot-password-form">
-            <div class="longnai">
-                <img src="imgs/longnai.png" alt="Game Icon">
+    <div class="homeWrapper">
+        <div class="longnai_pp">
+            <img src="imgs/longnai.png" alt="Game Icon">
+        </div>
+        <div class="content">
+            <div class="card">
+                    <h2 class="card__title">Get 100% progress to unlock the icon decoration!</h2>
+                <div class="card__indicator">
+                    <span class="card__indicator-amount">20</span> Works
+                </div>
+                <div class="card__progress">
+                    <span class="card__indicator-percentage">25%</span>
+                    <progress max="100" value="20"></progress>
+                </div>
             </div>
-            <h2>Forgot your password?</h2>
-            <div class="input-box">
-                <span class="icon"><i class="material-icons">email</i></span>
-                <input type="email" id="email" required>
-                <label>Please enter your email</label>
+            <div class="spark-containerHome">
+                <audio id="successSound" src="success.mp3"></audio>
+                <audio id="failSound" src="fail.mp3"></audio>
+                <div class="flame">🔥</div>
+                <div class="days-counter"><span id="days">0</span> Day Streak</div>
             </div>
-            <button type="submit">Reset your password</button>
-            <div class="register-link">
-                <p>Remember your password? <a href="login.html">Login now</a></p>
-            </div>
-        </form>
+            <button class="play_btn">
+                P L A Y
+                <div id="clip">
+                    <div id="leftTop" class="corner"></div>
+                    <div id="rightBottom" class="corner"></div>
+                    <div id="rightTop" class="corner"></div>
+                    <div id="leftBottom" class="corner"></div>
+                </div>
+                <span id="rightArrow" class="arrow"></span>
+                <span id="leftArrow" class="arrow"></span>
+            </button>
+        </div>
     </div>
+    
+    
     <nav>
         <div class="effect"></div>
         <button class="active">
