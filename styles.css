@@ -41,7 +41,7 @@ body{
 .longnai_pp{
   position: absolute;
   left: 3rem;
-  top: 2rem;
+  top: 1rem;
   width: 60px;
   height: 60px;
   
@@ -161,6 +161,21 @@ body{
 }
 
 .arrow {
+  position: absolute;
+  transition: 0.2s;
+  background-color: #2761c3;
+  top: 35%;
+  width: 11%;
+  height: 30%;
+}
+
+.back-arrow{
+  margin-left: 1rem;
+
+}
+
+
+.arrow1 {
   position: absolute;
   transition: 0.2s;
   background-color: #2761c3;
@@ -384,15 +399,25 @@ body{
 }
 
 
+
+
+.longnai img {
+  position: relative;
+  max-width: 60px;
+  max-height: 60px;
+  object-fit: contain;
+  border-radius: 120px;
+}
+
 .longnai{
   position: absolute;
   top: 3rem;
-  width: 200px;
-  height: 200px;
+  width: 10rem;
+  height: 10rem;
   display: flex;
   justify-content: center;
   align-items: center;
-
+  
 }
 
 .longnai img {

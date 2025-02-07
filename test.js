@@ -208,3 +208,4 @@ document.addEventListener("DOMContentLoaded", function () {
         window.location.href = "comming soon.html";
     });
 });
+

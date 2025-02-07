@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LongNai - Home</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .charContainer{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .charCard img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .charCard .charName {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .charCard{
+            width: 150px;
+            height: 200px;
+            background: lightblue;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border-radius: 10px;
+            border: 3px solid rgba(173, 216, 230, 0.7);
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+            overflow: hidden;
+        }
+
+        .longnai_pp{
+            position: absolute;
+            left: 3rem;
+            top: 1rem;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            
+        }
+        
+        .longnai_pp img {
+
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 120px;
+        }
+    </style>
+</head>
+<body>
+    <div class="blob"></div>
+    <div class="homeWrapper">
+        <div class="longnai_pp">
+            <button class="back-arrow"><span id="leftArrow" class="arrow1"></span></button>
+            <img src="imgs/longnai.png" alt="Game Icon">
+        </div>
+        <div class="content">
+            <h2>Watch stories of your favorite characters!</h2>
+            <div class="charContainer">
+                <div class="charCard">
+                    <div class="charName">NaiLong</div>
+                    <img src="imgs/nailong.png" alt="Character Image">
+                </div>
+                <div class="charCard">
+                    <div class="charName">MajinBuu</div>
+                    <img src="imgs/majinbuu.jpg" alt="Character Image">
+                </div>
+                <div class="charCard">
+                    <div class="charName">Ultraman</div>
+                    <img src="imgs/ultraman.png" alt="Character Image">
+                </div>
+                <div class="charCard">
+                    <div class="charName">Doraemon</div>
+                    <img src="imgs/doraemon.jpg" alt="Character Image">
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav>
+        <div class="effect"></div>
+        <button class="active">
+            <a href="index.html">
+                <i class="material-icons">gite</i>
+            </a>
+        </button>
+        <button>
+            <a href="play.html">
+                <i class="material-icons">auto_stories</i>
+            </a>
+        </button>
+        <button>
+            <a href="friend.html">
+                <i class="material-icons">group</i>
+            </a>
+        </button>
+        <button>
+            <a href="profile.html">
+                <i class="material-icons">account_box</i>
+            </a>
+            
+        </button>
+    </nav>
+    <script src="test.js"></script>
+    <script>        
+        document.addEventListener("DOMContentLoaded", () => {
+            const charcards = document.querySelectorAll(".charCard");
+        
+            charcards.forEach((charcard) => {
+                charcard.addEventListener("mousemove", (e) => {
+                    const cardRect = charcard.getBoundingClientRect();
+                    const cardWidth = charcard.clientWidth;
+                    const cardHeight = charcard.clientHeight;
+                    const transX = (e.clientX - cardRect.left - cardWidth / 2) * 0.2;
+                    const transY = (e.clientY - cardRect.top - cardHeight / 2) * 0.2;
+                    charcard.style.transform = `translateX(${transX}px) translateY(${transY}px)`;
+                    charcard.style.boxShadow = `${-transX}px ${-transY}px 15px rgba(0, 0, 0, 0.3)`;
+                });
+        
+                charcard.addEventListener("mouseleave", () => {
+                    charcard.style.transform = "";
+                    charcard.style.boxShadow = "";
+                });
+            });
+        });
+    </script>
+</body>
+</html>

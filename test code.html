@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Stories</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #f4f4f4;
+            margin: 0;
+        }
+
+        .content {
+            text-align: center;
+            max-width: 600px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        .charContainer {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 in a row */
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .charCard {
+            width: 150px;
+            height: 200px;
+            background: lightblue;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border-radius: 10px;
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+            overflow: hidden;
+        }
+
+        .charCard img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .charCard .charName {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+
+
+    <script>
+
+    </script>
+
+</body>
+</html>
