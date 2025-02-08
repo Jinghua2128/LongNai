@@ -16,6 +16,7 @@ body{
 }
 
 .homeWrapper{
+  margin-top: 1rem;
   position: absolute;
   width: 400px;
   height: 700px;

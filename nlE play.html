@@ -74,6 +74,84 @@
             object-fit: contain;
             border-radius: 120px;
         }
+
+        .difficultySwitch {
+            width: 8em;
+            height: 4em;
+            position: relative;
+            display: block;
+        }
+        
+        .difficultySwitch input {
+            width: 0;
+            height: 0;
+            opacity: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #ebc12a;
+            transition: 0.4s;
+            border-radius: 60px;
+            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+        }
+        
+        .slider::before {
+            position: absolute;
+            content: "";
+            height: 2.8em;
+            width: 2.8em;
+            border-radius: 50%;
+            left: 0.6em;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(45deg, #ff0080, #ff8c80 78%);
+            transition: 0.4s;
+        }
+        
+        input:checked + .slider {
+            background: #3a83dc;
+        }
+        
+        input:checked + .slider::before {
+            left: calc(100% - (2.8em + 0.6em));
+            background: #ef3d3dd7;
+            box-shadow: inset -3px -2px 5px -2px #8983f7, inset -10px -4px 0 0 #a3dafb;
+        }
+        
+        .difficultyText {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+            transition: opacity 0.4s;
+            pointer-events: none; 
+        }
+
+        .difficultyText.easy {
+            left: 1.2em;
+            opacity: 1;
+        }
+        
+        .difficultyText.hard {
+            right: 1.2em;
+            opacity: 0;
+        }
+        
+        input:checked ~ .difficultyText.easy {
+            opacity: 0;
+        }
+        
+        input:checked ~ .difficultyText.hard {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -84,25 +162,13 @@
             <img src="imgs/longnai.png" alt="Game Icon">
         </div>
         <div class="content">
-            <h2>Watch stories of your favorite characters!</h2>
-            <div class="charContainer">
-                <div class="charCard">
-                    <div class="charName">NaiLong</div>
-                    <img src="imgs/nailong.png" alt="Character Image">
-                </div>
-                <div class="charCard">
-                    <div class="charName">MajinBuu</div>
-                    <img src="imgs/majinbuu.jpg" alt="Character Image">
-                </div>
-                <div class="charCard">
-                    <div class="charName">Ultraman</div>
-                    <img src="imgs/ultraman.png" alt="Character Image">
-                </div>
-                <div class="charCard">
-                    <div class="charName">Doraemon</div>
-                    <img src="imgs/doraemon.jpg" alt="Character Image">
-                </div>
             </div>
+            <label class="difficultySwitch">
+                <input type="checkbox"/>
+                <span class="slider"></span>
+                <span class="difficultyText easy">Easy</span>
+                <span class="difficultyText hard">Hard</span>
+            </label>
         </div>
     </div>
     <nav>
@@ -131,26 +197,6 @@
     </nav>
     <script src="test.js"></script>
     <script>        
-        document.addEventListener("DOMContentLoaded", () => {
-            const charcards = document.querySelectorAll(".charCard");
-        
-            charcards.forEach((charcard) => {
-                charcard.addEventListener("mousemove", (e) => {
-                    const cardRect = charcard.getBoundingClientRect();
-                    const cardWidth = charcard.clientWidth;
-                    const cardHeight = charcard.clientHeight;
-                    const transX = (e.clientX - cardRect.left - cardWidth / 2) * 0.2;
-                    const transY = (e.clientY - cardRect.top - cardHeight / 2) * 0.2;
-                    charcard.style.transform = `translateX(${transX}px) translateY(${transY}px)`;
-                    charcard.style.boxShadow = `${-transX}px ${-transY}px 15px rgba(0, 0, 0, 0.3)`;
-                });
-        
-                charcard.addEventListener("mouseleave", () => {
-                    charcard.style.transform = "";
-                    charcard.style.boxShadow = "";
-                });
-            });
-        });
         document.addEventListener("DOMContentLoaded", () => {
             const difficultySwitch = document.querySelector(".difficultySwitch input");
             const easyText = document.querySelector(".difficultyText.easy");
