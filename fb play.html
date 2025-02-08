@@ -3,12 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LongNai - Home</title>
+    <title>LongNai - Play</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js" type="text/javascript"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
+
+        .playWrapper{
+            margin-top: 1rem;
+            position: absolute;
+            width: 400px;
+            height: 700px;
+            background: rgba(248, 166, 42, 0.43);
+            box-shadow: 0px 8px 32px rgba(249, 118, 118, 0.47);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        
+        }
+        
         .content{
             margin-top: 2.5rem;
             width: 400px;
@@ -16,6 +31,7 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
+
         }
         .charContainer{
             display: grid;
@@ -56,30 +72,40 @@
             border: 3px solid rgba(173, 216, 230, 0.7);
             transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
             overflow: hidden;
+
         }
 
-        .longnai_pp{
-            position: absolute;
-            left: 3rem;
-            top: 1rem;
-            width: 60px;
-            height: 60px;
+        .nailongBox{
+            width: 400px;
+            height: 300px;
+            background: rgba(235, 193, 42, 0.7);
             display: flex;
-            
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 15px;
         }
-        
-        .longnai_pp img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            border-radius: 120px;
+
+        .nailong{
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nailong img {
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .difficultySwitch {
-            width: 8em;
+            margin-top: 2rem;
+            width: 10em;
             height: 4em;
             position: relative;
             display: block;
+            margin-bottom: 3rem;
         }
         
         .difficultySwitch input {
@@ -152,24 +178,40 @@
         input:checked ~ .difficultyText.hard {
             opacity: 1;
         }
+        
+    
     </style>
 </head>
 <body>
     <div class="blob"></div>
-    <div class="homeWrapper">
-        <div class="longnai_pp">
-            <button class="back-arrow"><span id="leftArrow" class="arrow1"></span></button>
-            <img src="imgs/longnai.png" alt="Game Icon">
+    <div class="playWrapper">
+        <div class="nailongBox">
+            <div class="nailong">
+                <img src="imgs/nailong.png" alt="NaiLong">
+            </div>
         </div>
         <div class="content">
+            <div class="ez_hardPlay">            
+                <label class="difficultySwitch">
+                    <input type="checkbox"/>
+                    <span class="slider"></span>
+                    <span class="difficultyText easy">Easy</span>
+                    <span class="difficultyText hard">Hard</span>
+                </label>
+                <button class="play_btn">
+                    P L A Y
+                    <div id="clip">
+                        <div id="leftTop" class="corner"></div>
+                        <div id="rightBottom" class="corner"></div>
+                        <div id="rightTop" class="corner"></div>
+                        <div id="leftBottom" class="corner"></div>
+                    </div>
+                    <span id="rightArrow" class="arrow"></span>
+                    <span id="leftArrow" class="arrow"></span>
+                </button>
             </div>
-            <label class="difficultySwitch">
-                <input type="checkbox"/>
-                <span class="slider"></span>
-                <span class="difficultyText easy">Easy</span>
-                <span class="difficultyText hard">Hard</span>
-            </label>
         </div>
+
     </div>
     <nav>
         <div class="effect"></div>

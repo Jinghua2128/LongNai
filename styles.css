@@ -15,6 +15,13 @@ body{
 
 }
 
+.ez_hardPlay{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+
 .homeWrapper{
   margin-top: 1rem;
   position: absolute;
