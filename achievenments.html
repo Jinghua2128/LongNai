@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LongNai - Coming soon</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/FBXLoader.js"></script>
+
+    <style>
+        .model-container {
+            width: 100%;
+            max-width: 300px;
+            height: 300px;
+        }
+        .achievements {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: rgba(248, 190, 190, 0.747);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 3rem;
+            
+        }
+
+        h2{
+            margin-top: 12rem;
+        }
+        
+        .btn-shine {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            padding: 12px 48px;
+            color: #fff;
+            background: linear-gradient(to right, #9f9f9f 0, #fff 10%, #868686 20%);
+            background-position: 0;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 3s infinite linear;
+            animation-fill-mode: forwards;
+            -webkit-text-size-adjust: none;
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            white-space: nowrap;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            left: 13rem;
+        }
+            @-moz-keyframes shine {
+                0% {
+                background-position: 0;
+                }
+                60% {
+                background-position: 180px;
+                }
+                100% {
+                background-position: 180px;
+                }
+        }
+            @-webkit-keyframes shine {
+                0% {
+                background-position: 0;
+                }
+                60% {
+                background-position: 180px;
+                }
+                100% {
+                background-position: 180px;
+                }
+        }
+            @-o-keyframes shine {
+                0% {
+                background-position: 0;
+                }
+                60% {
+                background-position: 180px;
+                }
+                100% {
+                background-position: 180px;
+                }
+        }
+            @keyframes shine {
+                0% {
+                background-position: 0;
+                }
+                60% {
+                background-position: 180px;
+                }
+                100% {
+                background-position: 180px;
+                }
+        }
+    </style>
+</head>
+<body>
+    <div class="blob"></div>
+    <button onclick="goBack()" id="backButton" class="backButton">
+        <div class="backButton-box">
+            <span class="backButton-elem">
+                <img src="imgs/arrow-left.svg" alt="Back Button">
+            </span>
+            <span class="backButton-elem">
+                <img src="imgs/arrow-left.svg" alt="Back Button">
+            </span>
+        </div>
+    </button>
+    <div class="wrapper">
+        <h1 >My Achievements</h1>
+        <div class="achievements">
+            <div class="card">
+                <div class="sketchfab-embed-wrapper"> <iframe title="buu walking" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/b227b66e950e4807b664adc87f6d26fe/embed?autostart=1&camera=0&preload=1&transparent=1&ui_hint=0"> </iframe> </div>
+                <h2 class="btn-shine">Perfect score on Majin Buu quiz</h2>
+            </div>
+            <div class="card">
+                <div class="sketchfab-embed-wrapper"> <iframe title="nailong_walking" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/7f9a7454f005443faed4beb57ba0e5b8/embed?autostart=1&camera=0&preload=1&transparent=1&ui_hint=0"> </iframe> </div>
+                <h2 class="btn-shine">Completed Nai Long Hard</h2>
+            </div>
+
+        </div>
+    <nav>
+        <div class="effect"></div>
+        <button>
+            <a href="index.html">
+                <i class="material-icons">gite</i>
+            </a>
+        </button>
+        <button>
+            <a href="play.html">
+                <i class="material-icons">auto_stories</i>
+            </a>
+        </button>
+        <button>
+            <a href="friend.html">
+                <i class="material-icons">group</i>
+            </a>
+        </button>
+        <button class="active">
+            <a href="profile.html">
+                <i class="material-icons">account_box</i>
+            </a>
+            
+        </button>
+    </nav>
+    <script src="script.js"></script>
+
+</body>
+</html>
