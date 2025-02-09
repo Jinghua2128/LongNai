@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LongNai - Play</title>
+    <title>LongNai - Nai Long play</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js" type="text/javascript"></script>
@@ -179,11 +179,27 @@
             opacity: 1;
         }
         
-    
+        .storyLine {
+            margin-top: 2rem;
+            width: 300px;
+            background: #fff;
+            border: 2px solid #333;
+            border-radius: 10px;
+            padding: 1rem;
+            box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        .storyLine h3 {
+            width: 300px;
+            margin-top: 0;
+            color: #5f9fe3;
+        }
     </style>
 </head>
 <body>
     <div class="blob"></div>
+    
     <div class="playWrapper">
         <div class="nailongBox">
             <div class="nailong">
@@ -211,7 +227,7 @@
                 </button>
             </div>
         </div>
-
+        <div class="storyLine"></div>
     </div>
     <nav>
         <div class="effect"></div>
@@ -237,13 +253,13 @@
             
         </button>
     </nav>
-    <script src="test.js"></script>
+    <script src="script.js"></script>
     <script>        
         document.addEventListener("DOMContentLoaded", () => {
             const difficultySwitch = document.querySelector(".difficultySwitch input");
             const easyText = document.querySelector(".difficultyText.easy");
             const hardText = document.querySelector(".difficultyText.hard");
-        
+            
             difficultySwitch.addEventListener("change", () => {
                 if (difficultySwitch.checked) {
                     easyText.textContent = "";
@@ -252,6 +268,36 @@
                     easyText.textContent = "Easy";
                     hardText.textContent = "";
                 }
+            });
+            
+            // Handle PLAY button click: wait 2 seconds then display the corresponding storyline
+            const playButton = document.querySelector(".play_btn");
+            const storyLineDiv = document.querySelector(".storyLine");
+            
+            playButton.addEventListener("click", () => {
+                // Clear any previous story and show a loading message
+                storyLineDiv.innerHTML = "<p>Loading story...</p>";
+                
+                // Wait for at least 2 seconds (simulate data fetching delay)
+                setTimeout(() => {
+                    let storyHTML = "";
+                    if (difficultySwitch.checked) {
+                        // Hard mode storyline (for secondary school level, set in the Fat Buus interface)
+                        storyHTML = `
+                            <h3>Fat Buus World</h3>
+                            <p>In the chaotic realm of Fat Buus, where the collapsing empire of a once-mighty civilization intermingles with Nailong's gentle light, secondary school adventurers face intricate puzzles and mind-bending challenges. The fate of two worlds now hangs in the balance as they decode ancient mysteries and piece together fragmented legends to restore order.</p>
+                            <p><strong>Quiz:</strong> Which challenge best defines Fat Buus' fate?<br>A) Simple tasks<br>B) Complex riddles<br>C) A forgotten ritual</p>
+                        `;
+                    } else {
+                        // Easy mode storyline for Nailong (for primary school level)
+                        storyHTML = `
+                            <h3>Nailong's Quest</h3>
+                            <p>In the luminous realm of Nailong, tranquility once reigned supreme until a cataclysmic collision with the crumbling world of Fat Buus merged the two. Now, gentle lands streaked with light and shadow prompt young adventurers to embark on an epic quest. Their mission: to find the legendary portal that can restore Nailong to its former glory. Along the way, they face simple yet enchanting challenges that teach the values of courage and friendship.</p>
+                            <p><strong>Quiz:</strong> What is the key to Nailong's revival?<br>A) Cooperation<br>B) Courage<br>C) Wisdom</p>
+                        `;
+                    }
+                    storyLineDiv.innerHTML = storyHTML;
+                }, 2000);
             });
         });
     </script>

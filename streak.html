@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LongNai - </title>
+    <title>LongNai - Streak</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js" type="text/javascript"></script>
@@ -11,18 +11,24 @@
 </head>
 <body>
     <div class="blob"></div>
+    <button onclick="goBack()" id="backButton" class="backButton">
+        <div class="backButton-box">
+            <span class="backButton-elem">
+                <img src="imgs/arrow-left.svg" alt="Back Button">
+            </span>
+            <span class="backButton-elem">
+                <img src="imgs/arrow-left.svg" alt="Back Button">
+            </span>
+        </div>
+    </button>
     <div class="homeTop">
         <div class="longnai">
             <img src="imgs/longnai.png" alt="Game Icon">
         </div>
         <div class="content">
-                <div class="spark-container">
-                <audio id="successSound" src="success.mp3"></audio>
-                <audio id="failSound" src="fail.mp3"></audio>
-                <div class="flame">🔥</div>
-                <div class="days-counter">
-                    <span id="days">0</span>
-                    Day Streak</div>
+            <div class="spark-containerHome">
+                <dotlottie-player src="https://lottie.host/1b875b86-77d8-460d-9369-a02361f97faf/jP5M4ZDR1y.lottie" background="transparent" speed="1" style="width: 200px; height: 200px" loop autoplay></dotlottie-player>
+                <div class="days-counter"><span id="days">0</span> Day Streak</div>
             </div>
             <button id="interactButton" class="continue" conclick="recordInteraction()">You’re on a roll!</button>
             <button class="animated-button">
@@ -57,6 +63,14 @@
             
         </button>
     </nav>
-    <script src="test.js"></script>
+    <script src="script.js"></script>
+    <script>
+        const interactButton = document.getElementById('interactButton');
+        if (interactButton) {
+            interactButton.addEventListener('click', function() {
+                window.location.href = 'index.html';
+            });
+        }
+    </script>
 </body>
 </html>

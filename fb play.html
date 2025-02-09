@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LongNai - Play</title>
+    <title>LongNai - Majin Buu play</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js" type="text/javascript"></script>
@@ -78,7 +78,7 @@
         .majinbuuBox{
             width: 400px;
             height: 300px;
-            background: rgba(184, 42, 235, 0.33);
+            background: rgba(184, 42, 235, 0.242);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -188,6 +188,16 @@
 </head>
 <body>
     <div class="blob"></div>
+    <button onclick="goBack()" id="backButton" class="backButton">
+        <div class="backButton-box">
+            <span class="backButton-elem">
+                <img src="imgs/arrow-left.svg" alt="Back Button">
+            </span>
+            <span class="backButton-elem">
+                <img src="imgs/arrow-left.svg" alt="Back Button">
+            </span>
+        </div>
+    </button>
     <div class="playWrapper">
         <div class="majinbuuBox">
             <div class="majinbuu">
@@ -241,13 +251,45 @@
             
         </button>
     </nav>
-    <script src="test.js"></script>
+    <script src="script.js"></script>
     <script>        
         document.addEventListener("DOMContentLoaded", () => {
             const difficultySwitch = document.querySelector(".difficultySwitch input");
             const easyText = document.querySelector(".difficultyText.easy");
             const hardText = document.querySelector(".difficultyText.hard");
+            const playButton = document.querySelector(".play_btn");
         
+            // Function to fetch data from RestDB
+            const fetchData = async (difficulty) => {
+                const apiUrl = `https://your-restdb-url.restdb.io/rest/stories-quizzes?q={"difficulty":"${difficulty}"}`;
+                const apiKey = "your-api-key"; // Replace with your RestDB API key
+        
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "x-apikey": apiKey,
+                        },
+                    });
+        
+                    if (!response.ok) {
+                        throw new Error("Failed to fetch data");
+                    }
+        
+                    const data = await response.json();
+                    console.log(`${difficulty} Data:`, data);
+        
+                    // Handle the fetched data (e.g., display stories and quizzes)
+                    // You can update the DOM or store the data for later use
+                    // Example: displayStoriesAndQuizzes(data);
+        
+                } catch (error) {
+                    console.error("Error fetching data:", error);
+                }
+            };
+        
+            // Event listener for difficulty switch
             difficultySwitch.addEventListener("change", () => {
                 if (difficultySwitch.checked) {
                     easyText.textContent = "";
@@ -257,7 +299,36 @@
                     hardText.textContent = "";
                 }
             });
+        
+            // Event listener for the PLAY button
+            playButton.addEventListener("click", () => {
+                const difficulty = difficultySwitch.checked ? "hard" : "easy";
+                fetchData(difficulty);
+            });
         });
+        
+        const fetchData = async (difficulty) => {
+            // ... (fetch logic)
+            const data = await response.json();
+            displayStoriesAndQuizzes(data); // Display the fetched data
+        };
+
+        const displayStoriesAndQuizzes = (data) => {
+            const contentDiv = document.querySelector(".content");
+            contentDiv.innerHTML = ""; // Clear existing content
+        
+            data.forEach((item) => {
+                const storyDiv = document.createElement("div");
+                storyDiv.className = "story";
+                storyDiv.innerHTML = `
+                    <h3>Story</h3>
+                    <p>${item.story}</p>
+                    <h3>Quiz</h3>
+                    <p>${item.quiz}</p>
+                `;
+                contentDiv.appendChild(storyDiv);
+            });
+        };
     </script>
 </body>
 </html>

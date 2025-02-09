@@ -167,3 +167,91 @@ $(document).ready(function() {
     // Example usage of updateProgressCard
     updateProgressCard(20, 25);
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if user is logged in (simulated)
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+
+    if (!isLoggedIn && window.location.pathname.endsWith('index.html')) {
+        window.location.href = 'login.html';
+    }
+
+    // Login Form Submission
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+        loginForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Simulate login
+            if (username === 'user' && password === 'password') {
+                localStorage.setItem('isLoggedIn', true);
+                window.location.href = 'index.html';
+            } else {
+                alert('Invalid username or password');
+            }
+        });
+    }
+
+    // Sign Up Form Submission
+    const signupForm = document.getElementById('signupForm');
+    if (signupForm) {
+        signupForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const newUsername = document.getElementById('new_username').value;
+            const newPassword = document.getElementById('new_password').value;
+
+            // Simulate signup
+            if (newUsername && newPassword) {
+                localStorage.setItem('isLoggedIn', true);
+                window.location.href = 'login.html';
+            } else {
+                document.getElementById('error-message').textContent = 'Please fill in all fields.';
+            }
+        });
+    }
+
+    // Forgot Password Form Submission
+    const forgotPasswordForm = document.getElementById('forgotPasswordForm');
+    if (forgotPasswordForm) {
+        forgotPasswordForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+
+            // Simulate password reset
+            if (email) {
+                alert('Password reset instructions sent to your email.');
+            } else {
+                alert('Please enter your email.');
+            }
+        });
+    }
+
+    const forgotPasswordBtn = document.getElementById('forgot_password_btn');
+    if (forgotPasswordBtn) {
+        forgotPasswordBtn.addEventListener('click', function() {
+            window.location.href = 'forgot-password.html';
+        });
+    }
+
+    const playBtn = document.getElementById('play_btn');
+    if (playBtn) {
+        playBtn.addEventListener('click', function() {
+            window.location.href = 'play.html';
+        });
+    }
+
+    // Lottie Animation Click
+    const lottiePlayer = document.querySelector('dotlottie-player');
+    if (lottiePlayer) {
+        lottiePlayer.addEventListener('click', function() {
+            // Simulate updating streak in the database
+            alert('Streak updated!');
+        });
+    }
+});
+
+function goBack() {
+    window.history.back();
+}

@@ -3,20 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LongNai - Login</title>
+    <title>LongNai - Welcome</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <div class="blob"></div>
+    <button onclick="goBack()" id="backButton" class="backButton">
+        <div class="backButton-box">
+            <span class="backButton-elem">
+                <img src="imgs/arrow-left.svg" alt="Back Button">
+            </span>
+            <span class="backButton-elem">
+                <img src="imgs/arrow-left.svg" alt="Back Button">
+            </span>
+        </div>
+    </button>
     <div class="welcome_wrapper">
         <h2>Welcome to Long Nai</h2>
         <img id="profile_picture" src="imgs/color padlet.svg" alt="User profile picture">
         <a href="index.html">
-            <button type="submit">Continue</button>
+            <button id="continueBtn">Continue</button>
         </a>
     </div>
-    <script src="test.js"></script>
+    <script src="script.js"></script>
+    <script>
+        const continueBtn = document.getElementById('continueBtn');
+        if (continueBtn) {
+            continueBtn.addEventListener('click', function() {
+                window.location.href = 'streak.html';
+            });
+        }
+    </script>
 </body>
 </html>

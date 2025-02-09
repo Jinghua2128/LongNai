@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LongNai - Home</title>
+    <title>LongNai - Play</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js" type="text/javascript"></script>
@@ -78,27 +78,36 @@
 </head>
 <body>
     <div class="blob"></div>
-    <div class="homeWrapper">
+    <button onclick="goBack()" id="backButton" class="backButton">
+        <div class="backButton-box">
+            <span class="backButton-elem">
+                <img src="imgs/arrow-left.svg" alt="Back Button">
+            </span>
+            <span class="backButton-elem">
+                <img src="imgs/arrow-left.svg" alt="Back Button">
+            </span>
+        </div>
+    </button>
+    <div class="wrapper">
         <div class="longnai_pp">
-            <button class="back-arrow"><span id="leftArrow" class="arrow1"></span></button>
             <img src="imgs/longnai.png" alt="Game Icon">
         </div>
         <div class="content">
             <h2>Watch stories of your favorite characters!</h2>
             <div class="charContainer">
-                <div class="charCard">
+                <div id="nailongPlay" class="charCard">
                     <div class="charName">NaiLong</div>
                     <img src="imgs/nailong.png" alt="Character Image">
                 </div>
-                <div class="charCard">
+                <div id="majinbuuPlay" class="charCard">
                     <div class="charName">MajinBuu</div>
                     <img src="imgs/majinbuu.jpg" alt="Character Image">
                 </div>
-                <div class="charCard">
+                <div id="ultramanPlay" class="charCard">
                     <div class="charName">Ultraman</div>
                     <img src="imgs/ultraman.png" alt="Character Image">
                 </div>
-                <div class="charCard">
+                <div id="doraemon_Play" class="charCard">
                     <div class="charName">Doraemon</div>
                     <img src="imgs/doraemon.jpg" alt="Character Image">
                 </div>
@@ -129,7 +138,7 @@
             
         </button>
     </nav>
-    <script src="test.js"></script>
+    <script src="script.js"></script>
     <script>        
         document.addEventListener("DOMContentLoaded", () => {
             const charcards = document.querySelectorAll(".charCard");
@@ -166,6 +175,35 @@
                 }
             });
         });
+        
+        const nailongPlay = document.getElementById('nailongPlay');
+        if (nailongPlay) {
+            nailongPlay.addEventListener('click', function() {
+                window.location.href = 'nl play.html';
+            });
+        }
+
+        const majinbuuPlay = document.getElementById('majinbuuPlay');
+        if (majinbuuPlay) {
+            majinbuuPlay.addEventListener('click', function() {
+                window.location.href = 'fb play.html';
+            });
+        }
+
+        const ultramanPlay = document.getElementById('ultramanPlay');
+        if (ultramanPlay) {
+            ultramanPlay.addEventListener('click', function() {
+                window.location.href = 'coming soon.html';
+            });
+        }
+
+        const doraemon_Play = document.getElementById('doraemon_Play');
+        if (doraemon_Play) {
+            doraemon_Play.addEventListener('click', function() {
+                window.location.href = 'coming soon.html';
+            });
+        }
+
     </script>
 </body>
 </html>
