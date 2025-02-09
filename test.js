@@ -1,123 +1,97 @@
 const APIKEY = "67a33d9e2b46a681adb90fcf";
 const APIURL = "https://longnai-022b.restdb.io/rest/gameusers";
-document.addEventListener("DOMContentLoaded", function () {
-    
-    document.getElementById("Login").addEventListener("click", function (e) {
-        e.preventDefault(); 
-        let email = document.getElementById("login-email").value;
-        let password = document.getElementById("login-password").value;
 
-        fetch(`${APIURL}?q={"email": "${email}"}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "x-apikey": APIKEY
-            }
-        })
-        .then(response => response.json())
-        .then(users => {
-            if (users.length === 0) {
-                alert("Email not found, Please sign up first! :( ");
-            } else if (users[0].password === password) {
-                window.location.href = "welcome.html";
-            } else {
-                alert("Wrong password! :( ");
-            }
-        })
-        .catch(error => {
-            console.error("Login error:", error);
-            alert("An error occurred, Please try again! :( ");
-        });
+// Blob animation
+function animateBlob() {
+    anime({
+        targets: '.blob',
+        translateX: function() { return anime.random(-300, 300); },
+        translateY: function() { return anime.random(-50, 50); },
+        scale: function() { return anime.random(0.8, 1.2); },
+        borderRadius: function() { return anime.random(20, 80) + '%'; },
+        duration: 20000,
+        easing: 'easeInOutQuad',
+        complete: animateBlob
     });
-});
+}
 
-document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("SignUp").addEventListener("click", function (e) {
-        e.preventDefault();
+// Progress card update
+function updateProgressCard(works, percentage) {
+    $('.card__indicator-amount').text(works);
+    $('.card__indicator-percentage').text(percentage + '%');
+    $('.card__progress progress').val(percentage);
+}
 
-        let username = document.getElementById("signup-username").value;
-        let email = document.getElementById("signup-email").value;
-        let password = document.getElementById("signup-password").value;
+// Streak counter
+function updateStreak(days) {
+    $('#days').text(days);
+    if (days > 0) {
+        $('.flame').removeClass('inactive');
+    } else {
+        $('.flame').addClass('inactive');
+    }
+}
 
-        if (!username || !email || !password) {
-            alert("Please fill in all fields!");
-            return;
-        }
-
-        fetch(`${APIURL}?q={"email": "${email}"}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "x-apikey": APIKEY,
-                "Cache-Control": "no-cache"
-            }
-        })
-        .then(response => response.json())
-        .then(existingUsers => {
-            if (existingUsers.length > 0) {
-                alert("Email has already been registered, Please log in! :)");
-                return;
-            }
-
-            let NewUser = { "username": username, "email": email, "password": password };
-
-            fetch(APIURL, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "x-apikey": APIKEY
-                },
-                body: JSON.stringify(NewUser)
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data) {
-                    alert("Sign-up successful! You can now log in :)");
-                    window.location.href = "login.html";
-                } else {
-                    alert("Sign-up failed, Try again :( ");
-                }
-            })
-            .catch(error => {
-                console.error("Error during user creation:", error);
-                alert("An error occurred, Please try again! :( ");
-            });
-        })
-        .catch(error => {
-            console.error("Error checking email:", error);
-            alert("An error occurred, Please try again! :( ");
-        });
-    });
-});
-
-const effect = document.querySelector('.effect');
-const buttons = document.querySelectorAll('nav button');
-
-buttons.forEach(button => {
-
-    button.addEventListener('click', e => {
-        const x = e.target.offsetLeft;
-        buttons.forEach(btn => {
-            btn.classList.remove('active');
-        })
-        e.target.classList.add('active');
+// Play button hover effect
+$('.play_btn').hover(
+    function() {
         anime({
-            targets: '.effect',
-            left: `${x}px`,
-            opacity: '1',
-            duration: 600
-        })
-    })
-})
+            targets: this.querySelectorAll('.corner'),
+            scale: 1.25,
+            rotate: 45,
+            duration: 200
+        });
+    },
+    function() {
+        anime({
+            targets: this.querySelectorAll('.corner'),
+            scale: 1,
+            rotate: 45,
+            duration: 200
+        });
+    }
+);
 
-document.querySelector('.flame').addEventListener('click', function() {
-    const audio = document.getElementById('clickSound');
-    audio.play();
+// Navigation bar
+$('nav button').click(function() {
+    const x = $(this).position().left;
+    $('nav button').removeClass('active');
+    $(this).addClass('active');
+    anime({
+        targets: '.effect',
+        left: x,
+        opacity: 1,
+        duration: 600
+    });
 });
 
+// User authentication
+function login(email, password) {
+    fetch(`${APIURL}?q={"email": "${email}"}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "x-apikey": APIKEY
+        }
+    })
+    .then(response => response.json())
+    .then(users => {
+        if (users.length === 0) {
+            alert("Email not found, Please sign up first!");
+        } else if (users[0].password === password) {
+            localStorage.setItem('email', email);
+            window.location.href = "index.html";
+        } else {
+            alert("Wrong password!");
+        }
+    })
+    .catch(error => {
+        console.error("Login error:", error);
+        alert("An error occurred, Please try again!");
+    });
+}
 
-let email = localStorage.getItem('email');
-
+// Streak functionality
 function getFormattedDate() {
     return new Date().toISOString().split("T")[0];
 }
@@ -130,82 +104,66 @@ function isConsecutiveDay(previousDateStr) {
     return nextDateStr === todayStr;
 }
 
-async function fetchUserData() {
-    try {
-        const response = await fetch(`${APIURL}/${email}`, {
-            method: "GET",
-            headers: { "x-apikey": APIKEY}
-        });
-        if (!response.ok) throw new Error("An error has occured.");
-        const data = await response.json();
+function fetchUserData() {
+    const email = localStorage.getItem('email');
+    fetch(`${APIURL}/${email}`, {
+        method: "GET",
+        headers: { "x-apikey": APIKEY }
+    })
+    .then(response => response.json())
+    .then(data => {
         const lastInteraction = data.lastInteraction || "2007-07-08";
         const currentStreak = data.streakDays || 0;
         localStorage.setItem("lastInteractionDate", lastInteraction);
         localStorage.setItem("currentStreak", currentStreak);
-        updateDisplay();
-    } catch (error) {
-        console.error("Error fetching user data:", error);
-    }
+        updateStreak(currentStreak);
+    })
+    .catch(error => console.error("Error fetching user data:", error));
 }
 
-async function recordInteraction() {
-
+function recordInteraction() {
+    const email = localStorage.getItem('email');
     const todayDate = getFormattedDate();
     let lastInteractionDate = localStorage.getItem('lastInteractionDate') || "2007-07-08";
     let currentStreak = parseInt(localStorage.getItem('currentStreak')) || 0;
     let updatedStreak = 0;
+
     if (isConsecutiveDay(lastInteractionDate)) {
         updatedStreak = currentStreak + 1;
-        document.getElementById("successSound").play();
+        $('#successSound')[0].play();
     } else if (lastInteractionDate !== todayDate) {
         updatedStreak = 1;
-        document.getElementById("failSound").play();
+        $('#failSound')[0].play();
     } else {
         return;
     }
 
-    try {
-        const response = await fetch(`${APIURL}/${email}`, {
-            method: "PUT",
-            headers: {
-                "x-apikey": APIKEY,
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                streakDays: updatedStreak,
-                lastInteraction: todayDate
-            })
-        });
-        if (!response.ok) throw new Error("An error had occured.");
-
+    fetch(`${APIURL}/${email}`, {
+        method: "PUT",
+        headers: {
+            "x-apikey": APIKEY,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            streakDays: updatedStreak,
+            lastInteraction: todayDate
+        })
+    })
+    .then(response => {
+        if (!response.ok) throw new Error("An error had occurred.");
         localStorage.setItem('lastInteractionDate', todayDate);
         localStorage.setItem('currentStreak', updatedStreak);
-        updateDisplay();
-    } catch (error) {
-        console.error("Error updating user data:", error);
-    }
+        updateStreak(updatedStreak);
+    })
+    .catch(error => console.error("Error updating user data:", error));
 }
 
-function updateDisplay() {
-    const flame = document.querySelector('.flame');
-    const daysElement = document.getElementById('days');
-    let lastInteractionDate = localStorage.getItem('lastInteractionDate') || "2007-07-08";
-    let currentStreak = parseInt(localStorage.getItem('currentStreak')) || 0;
+$(document).ready(function() {
+    animateBlob();
+    fetchUserData();
 
-    if (!isConsecutiveDay(lastInteractionDate) && lastInteractionDate !== getFormattedDate()) {
-        flame.classList.add('inactive');
-    } else {
-        flame.classList.remove('inactive');
-    }
-    daysElement.textContent = currentStreak;
-}
-document.getElementById('interactButton').addEventListener('click', recordInteraction);
-fetchUserData();
+    $('.play_btn').click(recordInteraction);
 
-
-document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("startLearning").addEventListener("click", function () {
-        window.location.href = "comming soon.html";
-    });
+    // Example usage of updateProgressCard
+    updateProgressCard(20, 25);
 });
-
